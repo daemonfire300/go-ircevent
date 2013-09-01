@@ -24,6 +24,7 @@ func (irc *Connection) readLoop() {
 
 	for {
 		msg, err := br.ReadString('\n')
+		irc.log.Printf("<<<", msg)
 		if err != nil {
 			irc.Error <- err
 			break
@@ -74,7 +75,7 @@ func (irc *Connection) writeLoop() {
 			break
 		}
 
-		irc.log.Printf("--> %s\n", b)
+		irc.log.Printf(">>> %s\n", b)
 		_, err := irc.socket.Write([]byte(b))
 		if err != nil {
 			irc.Error <- err
