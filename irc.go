@@ -216,7 +216,9 @@ func (irc *Connection) Connect(server string) error {
 		irc.pwrite <- fmt.Sprintf("PASS %s\r\n", irc.Password)
 	}
 	irc.pwrite <- fmt.Sprintf("NICK %s\r\n", irc.nick)
-	irc.pwrite <- fmt.Sprintf("USER %s 0.0.0.0 0.0.0.0 :%s\r\n", irc.user, irc.user)
+	if irc.user != "" {
+		irc.pwrite <- fmt.Sprintf("USER %s 0.0.0.0 0.0.0.0 :%s\r\n", irc.user, irc.user)
+	}
 	return nil
 }
 
